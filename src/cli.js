@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 import { calculateMeetingCost } from './meeting-cost.js';
 
-const USAGE = 'Uso: npm start -- <participantes> <minutos> <custo-por-hora>\nExemplo: npm start -- 5 60 100';
+const USAGE =
+  'Uso: npm start -- <participantes> <minutos> <custo-por-hora>\nExemplo: npm start -- 5 60 100';
 
 const args = process.argv.slice(2);
 
@@ -11,7 +12,9 @@ if (args.length !== 3) {
 }
 
 try {
-  const [participants, minutes, hourlyCost] = args.map((arg) => (arg.trim() === '' ? NaN : Number(arg)));
+  const [participants, minutes, hourlyCost] = args.map((arg) =>
+    arg.trim() === '' ? NaN : Number(arg),
+  );
   const total = calculateMeetingCost(participants, minutes, hourlyCost);
   console.log(
     `Reunião de ${participants} participante(s) por ${minutes} min a ${hourlyCost.toFixed(2)}/h: custo total = ${total.toFixed(2)}`,

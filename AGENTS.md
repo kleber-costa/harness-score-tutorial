@@ -10,17 +10,20 @@
 
 - `src/meeting-cost.js`: função de domínio pura e exportada `calculateMeetingCost`.
 - `src/cli.js`: lê os argumentos e escreve a saída no terminal.
-- `package.json`: `"type": "module"`, Node `>=24`, script `start`.
+- `test/`: testes com o test runner nativo do Node.js.
+- `package.json`: `"type": "module"`, Node `>=24`, scripts abaixo.
+- `biome.json`, `tsconfig.json`: configuração de lint/formatação e de typecheck estrito (`checkJs`).
+- `.github/workflows/ci.yml`: CI com `npm ci`, lint, typecheck e testes.
 - `PROJETO.md`: descrição curta e exemplo de uso. Mantenha-o coerente com o comportamento real.
 - `README.md`, `LICENSE`: não altere.
-- `.gitignore`: `node_modules/`, logs, `.env`, arquivos de sistema e de editores.
-- Não existem testes, CI, linter, formatter nem typecheck.
+- `.gitignore`: `node_modules/`, `coverage/`, logs, `.env*` (exceto `.env.example`), arquivos de sistema e de editores.
 
 ## Comandos
 
-- `npm start -- <participantes> <minutos> <custo-por-hora>` executa `node src/cli.js`.
-- Exemplo: `npm start -- 5 60 100` imprime `Reunião de 5 participante(s) por 60 min a 100.00/h: custo total = 500.00`.
-- `start` é o único script. Não invente outros.
+- `npm start -- <participantes> <minutos> <custo-por-hora>`: executa `node src/cli.js`. Exemplo: `npm start -- 5 60 100` imprime `Reunião de 5 participante(s) por 60 min a 100.00/h: custo total = 500.00`.
+- `npm test`, `npm run lint`, `npm run typecheck`, `npm run format`.
+- `npm run check`: lint, typecheck e testes. Rode antes de concluir; o passo a passo está em `.agents/workflows/verify.md`.
+- Não invente outros scripts.
 
 ## Domínio
 
@@ -40,7 +43,9 @@
 ## Dependências e ESM
 
 - Use apenas ESM, com `.js` explícito nos imports relativos. Sem `require` nem `module.exports`.
-- Use só recursos nativos do Node.js 24. Não adicione dependências nem `package-lock.json`.
+- Use só recursos nativos do Node.js 24 em runtime. Sem dependências de runtime.
+- Dev dependencies fixadas (sem `^`): `@biomejs/biome`, `typescript`, `@types/node`. Não adicione outras sem pedido.
+- Mantenha `package-lock.json` versionado e coerente com `package.json`.
 
 ## Segurança
 
@@ -51,14 +56,14 @@
 ## Proibido sem pedido explícito
 
 - Commit, push ou mudança no histórico do git.
-- Instalar dependências ou gerar `package-lock.json`.
-- Criar testes, linter, formatter, typecheck, CI, hooks, pre-commit, MCP, rules, skills, workflows, `CLAUDE.md` ou `GEMINI.md`.
+- Instalar ou atualizar dependências.
+- Criar hooks, pre-commit, MCP, subagentes, `CLAUDE.md` ou `GEMINI.md`.
 - Inventar comandos, arquivos, serviços ou requisitos.
 
 ## Conclusão
 
 - [ ] Cálculo puro e exportado; CLI separada.
-- [ ] Só ESM e Node.js nativo; sem dependências nem `package-lock.json`.
+- [ ] Só ESM e Node.js nativo; sem dependências de runtime.
 - [ ] Entradas inválidas rejeitadas com erro acionável e código 1.
-- [ ] `npm start -- 5 60 100` imprime o resultado esperado.
+- [ ] `npm run check` passa.
 - [ ] `README.md`, `LICENSE` e `PROJETO.md` coerentes; sem commit.
