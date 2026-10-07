@@ -1,6 +1,9 @@
 # Dependências
 node_modules/
 
+# Cobertura
+coverage/
+
 # Logs
 *.log
 npm-debug.log*
